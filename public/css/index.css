@@ -1,0 +1,40 @@
+.content{
+    width:99vw;
+    margin-left:0.5vw;
+    border: 1px black solid;
+    border-radius: 1px;
+}
+#top-content{
+    position: relative;
+    height:95vh;
+}
+#bottom-content{
+    height: 5vh;
+}
+#bottom-content *{
+    height:auto;
+}
+.message{
+    width:30%;
+    margin-bottom:1.25%;
+}
+.theirMessage{
+    height:auto;
+    background-color:#aFa;
+}
+.myMessage{
+    margin-left:70%;
+    background-color:#AAF;
+}
+#writeMessage{
+    width:90%;
+}
+.messageContainer{
+    text-align:center;
+}
+.name{
+    color:#FAA;
+}
+.said{
+    color:#F00;
+}
