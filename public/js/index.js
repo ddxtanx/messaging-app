@@ -13,6 +13,11 @@ function addMessage(message, mine, author){
 function randInt(max){
     return Math.floor(Math.random()*max);
 }
+function updateDiv(){
+    var element = $("#messages");
+    element.scrollTop = element.scrollHeight;
+    console.log('scrolling');
+}
 var userName = "";
 while (userName==""){
     userName=prompt("What do you want your name to be?");
@@ -23,7 +28,6 @@ var messageId = 0;
 ws.onmessage = function(e){
     var data = e.data;
     data = JSON.parse(data);
-    console.log(messageId+" "+data.id);
     if(data.id!=messageId){
         addMessage(data.message, 0, data.from);
     }
@@ -53,4 +57,5 @@ $(document).ready(function(){
             addMessage(message, 1, "");
         }
     });
+    setInterval(updateDiv, 100);
 })

@@ -5,8 +5,8 @@
     border-radius: 1px;
 }
 #top-content{
-    position: relative;
     height:95vh;
+    overflow: auto;
 }
 #bottom-content{
     height: 5vh;
@@ -15,7 +15,9 @@
     height:auto;
 }
 .message{
+    display:block;
     width:30%;
+    overflow:auto;
     margin-bottom:1.25%;
 }
 .theirMessage{
@@ -31,10 +33,14 @@
 }
 .messageContainer{
     text-align:center;
+    height:auto;
 }
 .name{
     color:#FAA;
 }
 .said{
     color:#F00;
+}
+#messages{
+    overflow:auto;
 }
