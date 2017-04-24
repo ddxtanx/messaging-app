@@ -36,18 +36,7 @@ ws.onmessage = function(e){
 $(document).ready(function(){
     $("#submit").click(function(){
         var message = $("#writeMessage").val();
-        messageId = randInt(9999999);
-        var messageData = {
-            message: message,
-            id: messageId,
-            from: userName
-        };
-        ws.send(JSON.stringify(messageData));
-        addMessage(message, 1, "");
-    });
-    $("#writeMessage").keypress(function(key){
-        if(key.which==13){
-            var message = $("#writeMessage").val();
+        if(message!==""){
             messageId = randInt(9999999);
             var messageData = {
                 message: message,
@@ -56,6 +45,21 @@ $(document).ready(function(){
             };
             ws.send(JSON.stringify(messageData));
             addMessage(message, 1, "");
+        }
+    });
+    $("#writeMessage").keypress(function(key){
+        if($(this).val()!==""){
+            if(key.which==13){
+                var message = $("#writeMessage").val();
+                messageId = randInt(9999999);
+                var messageData = {
+                    message: message,
+                    id: messageId,
+                    from: userName
+                };
+                ws.send(JSON.stringify(messageData));
+                addMessage(message, 1, "");
+            }
         }
     });
 })
