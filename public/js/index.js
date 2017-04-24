@@ -12,11 +12,6 @@ function addMessage(message, mine, author){
 function randInt(max){
     return Math.floor(Math.random()*max);
 }
-function updateDiv(){
-    var element = $("#messages");
-    element.scrollTop = element.scrollHeight;
-    console.log('scrolling');
-}
 var userName = "";
 while (userName==""){
     userName=prompt("What do you want your name to be?");
@@ -27,8 +22,15 @@ var messageId = 0;
 ws.onmessage = function(e){
     var data = e.data;
     data = JSON.parse(data);
-    if(data.id!=messageId){
-        addMessage(data.message, 0, data.from);
+    if(data.type=="message"){
+        if(data.id!=messageId){
+            addMessage(data.message, 0, data.from);
+        }
+    }else if(data.type=="conn"){
+        console.log("connection added")
+        var connected = data.usersConnected;
+        var noun = (connected!=1)?"Users":"User";
+        $("#usersH2").text(connected+" "+noun+" Connected");
     }
 };
 $(document).ready(function(){
@@ -56,5 +58,4 @@ $(document).ready(function(){
             addMessage(message, 1, "");
         }
     });
-    setInterval(updateDiv, 100);
 })

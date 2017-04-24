@@ -44,3 +44,6 @@
 #messages{
     overflow:auto;
 }
+#usersConnected{
+    text-align:center;
+}
