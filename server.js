@@ -26,7 +26,9 @@ wss.on('connection', function(ws){
         console.log("data "+data);
         wss.clients.forEach(function(client){
             console.log("sent to client");
-            data = [data.slice(0, data.length-1), ", \"type\": \"message\"", data.slice(data.length-1)].join('')
+            if(!data.includes("\"type\": ")){
+                data = [data.slice(0, data.length-1), ", \"type\": \"message\"", data.slice(data.length-1)].join('')
+            }
             console.log(data);
             client.send(data);
         });
