@@ -1,7 +1,6 @@
 function addMessage(message, mine, author){
     var className = (mine)?"myMessage":"theirMessage";
-    var author = encodeURIComponent(author);
-    var byLine = (author=="")?message:"<span class='name'>"+author+"</span><span class='said'>Said:</span> "+message;
+    var byLine = (author=="")?message:"<span class='name'>"+author+"</span><span class='said'> Said:</span> "+message;
     var element = "<div class='"+className+" message'>\
                         <div class='messageContainer'>\
                             "+byLine+"\
