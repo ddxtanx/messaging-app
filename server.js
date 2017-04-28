@@ -9,10 +9,6 @@ var connections = 0;
 var userNames = [];
 var userNamesCopy = [];
 var requestsIndex = 0;
-var webSockets = {};
-function randInt(min, max){
-    return Math.floor(Math.random()*(max-min))+min
-}
 app.set('views', './public');
 app.use(express.static('./public'), bodyParser());
 
@@ -22,8 +18,6 @@ app.get("/", function(req, res){
 });
 wss.on('connection', function(ws){
     connections++;
-    console.log("connecton");
-    webSockets[randInt(50,500)] = ws;
     ws.on('message', function(data){
         console.log("data "+data);
         if(JSON.parse(data).type=="closeRes"){

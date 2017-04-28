@@ -46,6 +46,9 @@ ws.onmessage = function(e){
         var connected = data.usersConnected;
         var noun = (connected!=1)?"Users":"User";
         $("#usersH2").text(connected+" "+noun+" Connected");
+        userNames = userNames.filter(function(name){
+            return name!==data.name;
+        });
         addMessage(data.name+" Has Disconnected", false, "SERVER");
     } else if(data.type=="closeRequest"){
         var closeResData = {
