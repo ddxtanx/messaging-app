@@ -69,6 +69,11 @@ ws.onmessage = function(e){
             name: userName
         };
         ws.send(JSON.stringify(connData));
+        addMessage("Users Connected:", false, "SERVER");
+        for(var x = 0; x<userNames.length; x++){
+            addMessage(userNames[x], false, "SERVER");
+        }
+        addMessage("You", false, "SERVER");
     }
 };
 $(document).ready(function(){
