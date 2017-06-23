@@ -1,3 +1,9 @@
+var permission = false
+if(("Notification" in window) && Notification.permission!=="granted"){
+  Notification.requestPermission(function(perm){
+    permission = (perm==="granted")
+  })
+}
 function addMessage(message, mine, author){
     var className = (mine)?"myMessage":"theirMessage";
     var byLine = (author=="")?message:"<span class='name'>"+author+"</span><span class='said'> Said:</span> "+message;
@@ -8,6 +14,11 @@ function addMessage(message, mine, author){
                     </div>";
     $("#messages").append(element);
     $("#writeMessage").val("");
+}
+function sendNotif(message){
+  if(permission){
+    var notif = new Notification(message);
+  }
 }
 function randInt(max){
     return Math.floor(Math.random()*max);
@@ -31,6 +42,7 @@ ws.onmessage = function(e){
         console.log("RECEIVED MESSAGE");
         if(data.id!=messageId){
             addMessage(data.message, 0, data.from);
+            sendNotif(data.from+" said '"+data.message+"'");
         }
     }else if(data.type=="conn"){
         console.log("connection added");
@@ -41,6 +53,7 @@ ws.onmessage = function(e){
         var noun = (connected!=1)?"Users":"User";
         $("#usersH2").text(connected+" "+noun+" Connected");
         addMessage(data.name+" Has Connected", false, "SERVER");
+        sendNotif(data.name+" Has Connected")
     } else if(data.type=="close"){
         console.log("RECEIVED CLOSE");
         var connected = data.usersConnected;
@@ -49,6 +62,7 @@ ws.onmessage = function(e){
         userNames = userNames.filter(function(name){
             return name!==data.name;
         });
+        sendNotif(data.name+" Has Disconnected");
         addMessage(data.name+" Has Disconnected", false, "SERVER");
     } else if(data.type=="closeRequest"){
         var closeResData = {
